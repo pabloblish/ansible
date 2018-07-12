@@ -1,0 +1,23 @@
+---
+- name: Starting webserver role
+  debug: msg="Installing apache..."
+
+- include: variables.yml
+
+- name: install required software
+  yum: name={{ item }} state=present
+  with_items:
+    - httpd
+  notify: Restart server
+
+- name: Using template index file
+  template:
+    src: index.html
+    dest: "{{ index_file_path }}"
+    mode: 0644
+
+- name: Copying config file
+  file:
+    src: charset.conf
+    dest: /etc/http/conf.d/
+    mode: 0644

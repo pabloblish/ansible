@@ -1,0 +1,19 @@
+---
+- name: Starting index role
+  debug: msg="Configuring index file in apache."
+
+- name: Stop service httpd, if running
+  service:
+    name: httpd
+    state: stopped
+
+- name: Copying file index.html
+  copy:
+    src: /home/vagrant/roles/webserver/file/index.html
+    dest: "{{ index_file_path }}"
+    mode: 0644
+
+- name: Start service httpd, if not running
+  service:
+    name: httpd
+    state: started

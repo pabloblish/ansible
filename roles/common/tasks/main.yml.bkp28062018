@@ -1,0 +1,6 @@
+---
+- name: Remove a login user
+    user:
+      name: glopez
+      state: absent
+      remove: yes

@@ -1,0 +1,23 @@
+---
+- name: Create a devops group
+  group:
+    name: devops
+    state: present
+
+- name: Create a login user
+  user:
+    name: glopez
+    comment: Guillermo Lopez Langarica
+    groups: wheel,devops
+    shell: /bin/sh
+    createhome: yes
+    home: /home/glopez
+    system: yes
+    generate_ssh_key: yes
+
+- name: changing sudoers file
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^# %wheel        ALL=(ALL)       NOPASSWD: ALL'
+    line: '%wheel        ALL=(ALL)       NOPASSWD: ALL'

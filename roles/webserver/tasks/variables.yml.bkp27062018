@@ -1,0 +1,5 @@
+---
+
+- name: Include OS-specific variables (Centos)
+  include_vars: "{{ ansible_os_family }}.yml"
+  when: ansible_os_family == 'Centos'
